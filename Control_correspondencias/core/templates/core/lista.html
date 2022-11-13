@@ -1,0 +1,53 @@
+{%  extends 'core\base.html' %}
+{% load static %}
+
+{% block header %} <div class="titulo"> <h1>Listado correspondencia</h1></div> {% endblock %}
+
+{% block buscador %}
+
+<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+method="GET">
+  {% csrf_token %}
+  <div class="input-group">
+    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar Residencia..." name="buscar" value="">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="submit">
+        <i class="fas fa-search fa-sm"></i>
+      </button>
+    </div>
+  </div>
+</form>
+
+{% endblock buscador %}
+
+{% block content %}
+    <div class="container" id="tabla">
+        <table class="table" >
+            <thead id="header-tabla">
+                <tr>
+                    <th scope="col">Residencia</th>
+                    <th scope="col">Destinatario</th>
+                    <th scope="col">Remitente</th>
+                    <th scope="col">Conserje</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Fecha recepcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for correspondencia in lista %}
+                    <tr>
+                        <th scope="row">{{correspondencia.nro_residencia}}</th>
+                        <td>{{correspondencia.conserje}}</td>
+                        <td>{{correspondencia.remitente}}</td>
+                        <td>{{correspondencia.destinatario}}</td>
+                        <td>{{correspondencia.estado}}</td>
+                        <td>{{correspondencia.fecha_recepcion}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
